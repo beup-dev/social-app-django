@@ -3,6 +3,7 @@ from django.conf import settings
 from django.db import models
 from django.db.utils import IntegrityError
 from social_core.utils import setting_name
+from django_cryptography.fields import encrypt
 
 from .managers import UserSocialAuthManager
 from .storage import (
@@ -40,7 +41,7 @@ class AbstractUserSocialAuth(models.Model, DjangoUserMixin):
     )
     provider = models.CharField(max_length=32)
     uid = models.CharField(max_length=UID_LENGTH, db_index=True)
-    extra_data = models.JSONField(default=dict)
+    extra_data =  encrypt(models.JSONField(default=dict))
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     objects = UserSocialAuthManager()

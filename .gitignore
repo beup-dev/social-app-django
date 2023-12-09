@@ -52,3 +52,4 @@ changelog.sh
 
 files/local.env
 .venv/
+venv/
